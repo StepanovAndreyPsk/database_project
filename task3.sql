@@ -1,6 +1,6 @@
 CREATE SCHEMA school;
 
--- task 1
+-- task 3
 
 CREATE TABLE school.user(
     user_id INTEGER PRIMARY KEY,
@@ -99,3 +99,4 @@ CREATE TABLE school.course_X_exam(
     FOREIGN KEY (course_id) REFERENCES school.course (course_id) ON DELETE CASCADE,
     FOREIGN KEY (exam_id) REFERENCES school.exam (exam_id) ON DELETE CASCADE
 );
+
