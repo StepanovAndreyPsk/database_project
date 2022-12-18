@@ -1,4 +1,3 @@
-
 -- task 5
 -- открылся новый онлайн-курс
 INSERT INTO school.course(course_id, course_name, course_length)
@@ -22,7 +21,7 @@ UPDATE school.course
 SET course_length = 60
 WHERE course_name = 'Язык программирования C++';
 
--- закыли один из курсов
+-- закрыли один из курсов
 DELETE FROM school.course WHERE course_id = 4;
 
 -- преподавателя закрытого курса переназначили на другой курс

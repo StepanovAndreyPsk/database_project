@@ -1,7 +1,7 @@
 CREATE SCHEMA school;
 
 -- task 3
-
+DROP TABLE IF EXISTS school.user CASCADE;
 CREATE TABLE school.user(
     user_id INTEGER PRIMARY KEY,
     user_name TEXT NOT NULL,
@@ -10,12 +10,14 @@ CREATE TABLE school.user(
     user_score INTEGER NOT NULL CHECK (user_score BETWEEN 0 AND 100)
 );
 
+DROP TABLE IF EXISTS school.course CASCADE;
 CREATE TABLE school.course(
     course_id INTEGER PRIMARY KEY,
     course_name TEXT NOT NULL,
     course_length INTEGER NOT NULL
 );
 
+DROP TABLE IF EXISTS school.user_X_course CASCADE;
 CREATE TABLE school.user_X_course(
     user_id INTEGER,
     course_id INTEGER,
@@ -28,12 +30,14 @@ CREATE TABLE school.user_X_course(
     FOREIGN KEY (course_id) REFERENCES school.course (course_id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS school.subscription_type CASCADE;
 CREATE TABLE school.subscription_type(
     subscription_type_id INTEGER PRIMARY KEY,
     subscription_name TEXT NOT NULL,
     cost_per_month INTEGER NOT NULL
 );
 
+DROP TABLE IF EXISTS school.user_X_subscription_type CASCADE;
 CREATE TABLE school.user_X_subscription_type(
     subscription_id INTEGER PRIMARY KEY,
     subscription_type_id INTEGER NOT NULL,
@@ -42,9 +46,10 @@ CREATE TABLE school.user_X_subscription_type(
     expiration_date DATE NOT NULL,
 
     FOREIGN KEY (user_id) REFERENCES school.user (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (subscription_id) REFERENCES school.subscription_type (subscription_type_id) ON DELETE CASCADE
+    FOREIGN KEY (subscription_type_id) REFERENCES school.subscription_type (subscription_type_id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS school.subscription_type_X_course CASCADE;
 CREATE TABLE school.subscription_type_X_course(
     subscription_type_id INTEGER,
     course_id INTEGER,
@@ -52,6 +57,7 @@ CREATE TABLE school.subscription_type_X_course(
     CONSTRAINT sc_id PRIMARY KEY (subscription_type_id, course_id)
 );
 
+DROP TABLE IF EXISTS school.mentor CASCADE;
 CREATE TABLE school.mentor(
     mentor_id INTEGER PRIMARY KEY,
     mentor_name TEXT NOT NULL,
@@ -59,6 +65,7 @@ CREATE TABLE school.mentor(
                           CONSTRAINT proper_email CHECK (mentor.mentor_email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
+DROP TABLE IF EXISTS school.user_X_mentor CASCADE;
 CREATE TABLE school.user_X_mentor(
     user_id INTEGER,
     mentor_id INTEGER,
@@ -68,6 +75,7 @@ CREATE TABLE school.user_X_mentor(
     FOREIGN KEY (mentor_id) REFERENCES school.mentor (mentor_id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS school.teacher CASCADE;
 CREATE TABLE school.teacher(
     teacher_id INTEGER PRIMARY KEY,
     teacher_name TEXT NOT NULL,
@@ -75,6 +83,7 @@ CREATE TABLE school.teacher(
                            CONSTRAINT proper_email CHECK (teacher.teacher_email ~* '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')
 );
 
+DROP TABLE IF EXISTS school.teacher_X_course CASCADE;
 CREATE TABLE school.teacher_X_course(
     teacher_id INTEGER,
     course_id INTEGER,
@@ -84,12 +93,14 @@ CREATE TABLE school.teacher_X_course(
     FOREIGN KEY (course_id) REFERENCES school.course (course_id) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS school.exam CASCADE;
 CREATE TABLE school.exam(
     exam_id INTEGER PRIMARY KEY,
     exam_name TEXT NOT NULL,
     subject TEXT NOT NULL
 );
 
+DROP TABLE IF EXISTS school.course_X_exam CASCADE;
 CREATE TABLE school.course_X_exam(
     course_id INTEGER,
     exam_id INTEGER,
@@ -99,4 +110,3 @@ CREATE TABLE school.course_X_exam(
     FOREIGN KEY (course_id) REFERENCES school.course (course_id) ON DELETE CASCADE,
     FOREIGN KEY (exam_id) REFERENCES school.exam (exam_id) ON DELETE CASCADE
 );
-
