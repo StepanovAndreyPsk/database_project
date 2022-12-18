@@ -62,14 +62,6 @@ INSERT INTO school.subscription_type_X_course(subscription_type_id, course_id)
 INSERT INTO school.subscription_type_X_course(subscription_type_id, course_id)
         VALUES(5, 5);
 
-select stc.subscription_type_id as subscrition_type_id, u.user_id as user_id, uc.start_date as start_date
-    from school.user u
-        inner join school.user_x_course uc
-        on u.user_id = uc.user_id
-    inner join school.subscription_type_X_course stc
-        on uc.course_id = stc.course_id;
-
-
 -- заполним таблицу user_x_subscription_type
 INSERT INTO school.user_x_subscription_type(subscription_id, subscription_type_id, user_id, activation_date, expiration_date)
         VALUES(1, 4, 5, '10-10-2022', '10-11-2022');
@@ -117,9 +109,6 @@ INSERT INTO school.teacher(teacher_id, teacher_name, teacher_email)
         VALUES(4, 'Егор Суворов', 'egorsuvorov@yandex.ru');
 INSERT INTO school.teacher(teacher_id, teacher_name, teacher_email)
         VALUES(5, 'Александра Орлова', 'alexandraorlova@yandex.ru');
-
--- select course_id, course_name
--- from school.course;
 
 -- заполним табицу teacher_x_course
 INSERT INTO school.teacher_X_course(teacher_id, course_id)
